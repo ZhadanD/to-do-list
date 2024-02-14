@@ -64,6 +64,29 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="moveTaskModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="moveTaskModalLabel">Перенос задачи "<span id="name-task-move"></span>"</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="notification-move-task"></div>
+
+                            <form>
+                                <label for="to-do-lists">Списки дел</label>
+                                <select class="form-select" id="to-do-lists"></select>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-warning" id="btn-move-task">Перенести</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

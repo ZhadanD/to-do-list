@@ -80,6 +80,7 @@ function showTodoListByIndex(index) {
         <section class="mb-3 col-xl-4 col-md-6 col-sm-12 text-center p-3">
             <hr/>
                 <h4 class="text-center">${list.tasks[i].name}</h4>
+                <button type="button" class="btn btn-warning btn-lg" onclick="showMoveTask(${index}, ${i})" data-bs-toggle="modal" data-bs-target="#moveTaskModal">Перенести</button>
                 <button type="button" class="btn btn-danger btn-lg" onclick="deleteTaskByIndex(${index}, ${i})">Удалить</button>
             <hr/>
         </section>
@@ -95,6 +96,44 @@ function showTodoListByIndex(index) {
 
     document.getElementById('content').innerHTML = content
     document.getElementById('btn-create-task').onclick = () => createTask(index)
+}
+
+function showMoveTask(indexTodoList, indexTask) {
+    let todoList = getTodoList()
+
+    let content = ''
+
+    todoList.forEach((list, index) => {
+        content += `
+            <option value="${index}">${list.name}</option>
+        `
+    })
+
+    document.getElementById('name-task-move').innerText = todoList[indexTodoList].tasks[indexTask].name
+    document.getElementById('to-do-lists').innerHTML = content
+    document.getElementById('btn-move-task').onclick = () => moveTask(indexTodoList, indexTask)
+}
+
+function moveTask(indexCurrentTodoList, indexTask) {
+    let indexSelectedList = Number(document.getElementById('to-do-lists').value)
+
+    let todoList = getTodoList()
+
+    let currentTask = todoList[indexCurrentTodoList].tasks[indexTask]
+
+    todoList[indexCurrentTodoList].tasks.splice(indexTask, 1)
+
+    todoList[indexSelectedList].tasks.push(currentTask)
+
+    setTodoList(todoList)
+
+    document.getElementById('notification-move-task').innerHTML = `
+        <h3 class="text-center text-success">Задача "${currentTask.name}" перемещена в список "${todoList[indexSelectedList].name}"</h3>
+    `
+
+    setTimeout(() => document.getElementById('notification-move-task').innerHTML = '', 2000)
+
+    showTodoListByIndex(indexCurrentTodoList)
 }
 
 function deleteTaskByIndex(indexTodoList, indexTask) {
