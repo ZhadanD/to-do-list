@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Список дел</title>
+</head>
+<body>
+    <header class="container">
+        <h1 class="text-center mt-5">Список дел</h1>
+    </header>
+
+    <main class="container mt-3">
+        <div class="border border-success rounded p-5">
+            <div id="content"></div>
+
+            <div class="modal fade" id="createTodoListModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="createTodoListModalLabel">Создание списка дел</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="notification"></div>
+
+                            <form>
+                                <label for="name-list">Название списка</label>
+                                <input id="name-list" type="text" class="form-control" placeholder="Введите название списка">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-success" onclick="createTodoList()">Создать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
