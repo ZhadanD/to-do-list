@@ -50,6 +50,7 @@ function showTodoList() {
             <hr/>
                 <h4 class="text-center">${list.name}</h4>
                 <button type="button" class="btn btn-success btn-lg" onclick="showTodoListByIndex(${index})">Открыть</button>
+                <button type="button" class="btn btn-danger btn-lg" onclick="deleteTodoListByIndex(${index})">Удалить</button>
             <hr/>
         </section>
         `
@@ -74,16 +75,16 @@ function showTodoListByIndex(index) {
         <article class="row">
     `
 
-    list.tasks.forEach((task, index) => {
+    for (let i = 0; i < list.tasks.length; i++) {
         content += `
         <section class="mb-3 col-xl-4 col-md-6 col-sm-12 text-center p-3">
             <hr/>
-                <h4 class="text-center">${task.name}</h4>
-                <button type="button" class="btn btn-success btn-lg">Тест</button>
+                <h4 class="text-center">${list.tasks[i].name}</h4>
+                <button type="button" class="btn btn-danger btn-lg" onclick="deleteTaskByIndex(${index}, ${i})">Удалить</button>
             <hr/>
         </section>
         `
-    })
+    }
 
     content += `
         <section class="mb-3 col-xl-4 col-md-6 col-sm-12 text-center">
@@ -94,6 +95,34 @@ function showTodoListByIndex(index) {
 
     document.getElementById('content').innerHTML = content
     document.getElementById('btn-create-task').onclick = () => createTask(index)
+}
+
+function deleteTaskByIndex(indexTodoList, indexTask) {
+    let todoList = getTodoList()
+
+    let decision = confirm(`Вы действительно хотите удалить задачу "${todoList[indexTodoList].tasks[indexTask].name}"?`)
+
+    if(decision) {
+        todoList[indexTodoList].tasks.splice(indexTask, 1)
+
+        setTodoList(todoList)
+
+        showTodoListByIndex(indexTodoList)
+    }
+}
+
+function deleteTodoListByIndex(index) {
+    let todoList = getTodoList()
+
+    let decision = confirm(`Вы точно хотите удалить список дел "${todoList[index].name}"`)
+
+    if(decision) {
+        todoList.splice(index, 1)
+
+        setTodoList(todoList)
+
+        showTodoList()
+    }
 }
 
 function validateCreateTask(task) {
