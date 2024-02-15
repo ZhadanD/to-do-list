@@ -48,7 +48,7 @@ function showTodoList() {
         content += `
         <section class="mb-3 col-xl-4 col-md-6 col-sm-12 text-center p-3">
             <hr/>
-                <h4 class="text-center">${list.name}</h4>
+                <h4 class="text-center">${list.name} <br> <span class="text-success">${list.tasks.length}</span></h4>
                 <button type="button" class="btn btn-success btn-lg" onclick="showTodoListByIndex(${index})">Открыть</button>
                 <button type="button" class="btn btn-danger btn-lg" onclick="deleteTodoListByIndex(${index})">Удалить</button>
             <hr/>
