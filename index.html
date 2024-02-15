@@ -55,6 +55,16 @@
                             <form>
                                 <label for="name-task">Название задачи</label>
                                 <input id="name-task" type="text" class="form-control" placeholder="Введите название задачи">
+
+                                <br>
+
+                                <label for="description-task">Описание задачи</label>
+                                <textarea id="description-task" class="form-control" placeholder="Введите описание задачи"></textarea>
+
+                                <br>
+
+                                <label for="deadline-task">Крайний срок задачи</label>
+                                <input id="deadline-task" type="date" class="form-control">
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -92,11 +102,19 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="showTaskModalLabel">Задача "<span id="name-selected-task"></span>"</h1>
+                            <h1 class="modal-title fs-5" id="showTaskModalLabel">Задача "<span id="name-selected-task"></span>" <br/> <span id="isCompleted-selected-task"></span> </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ...
+                            <p class="fs-5">До: <span id="deadline-selected-task"></span></p>
+
+                            <div class="container">
+                                <h3 class="text-center">Описание задачи</h3>
+
+                                <div class="border border-success rounded p-3">
+                                    <p class="fs-6" id="description-selected-task"></p>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>

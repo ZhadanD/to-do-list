@@ -118,7 +118,14 @@ function showMoveTask(indexTodoList, indexTask) {
 function showTask(indexTodoList, indexTask) {
     let todoList = getTodoList()
 
-    document.getElementById('name-selected-task').innerText = todoList[indexTodoList].tasks[indexTask].name
+    let currentTask = todoList[indexTodoList].tasks[indexTask]
+
+    document.getElementById('name-selected-task').innerText = currentTask.name
+    document.getElementById('isCompleted-selected-task').innerText = currentTask.isCompleted ? 'Выполнена' : 'Ждет выполнения'
+    document.getElementById('isCompleted-selected-task').style.color = currentTask.isCompleted ? 'green' : '#ffca2c'
+    document.getElementById('description-selected-task').innerText = currentTask.description
+    document.getElementById('deadline-selected-task').innerText = currentTask.deadline
+    document.getElementById('deadline-selected-task').style.color = new Date(currentTask.deadline) > new Date() ? 'green' : 'red'
 }
 
 function moveTask(indexCurrentTodoList, indexTask) {
@@ -172,16 +179,19 @@ function deleteTodoListByIndex(index) {
 }
 
 function validateCreateTask(task) {
-    if(task.name) return true
+    if(task.name && task.description && task.deadline) return true
     else {
-        alert('Напишите название задачи!')
+        alert('Заполните все данные для задачи!')
         return false
     }
 }
 
 function createTask(indexTodoList) {
     let task = {
-        name: document.getElementById('name-task').value
+        name: document.getElementById('name-task').value,
+        description: document.getElementById('description-task').value,
+        deadline: document.getElementById('deadline-task').value,
+        isCompleted: false,
     }
 
     if(validateCreateTask(task)) {
@@ -192,6 +202,8 @@ function createTask(indexTodoList) {
         setTodoList(todoList)
 
         document.getElementById('name-task').value = ''
+        document.getElementById('description-task').value = ''
+        document.getElementById('deadline-task').value = ''
 
         document.getElementById('notification-task').innerHTML = `
             <h3 class="text-center text-success">Задача "${task.name}" создана</h3>
