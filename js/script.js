@@ -80,6 +80,7 @@ function showTodoListByIndex(index) {
         <section class="mb-3 col-xl-4 col-md-6 col-sm-12 text-center p-3">
             <hr/>
                 <h4 class="text-center">${list.tasks[i].name}</h4>
+                <button type="button" class="btn btn-success btn-lg" onclick="showTask(${index}, ${i})" data-bs-toggle="modal" data-bs-target="#showTaskModal">Открыть</button>
                 <button type="button" class="btn btn-warning btn-lg" onclick="showMoveTask(${index}, ${i})" data-bs-toggle="modal" data-bs-target="#moveTaskModal">Перенести</button>
                 <button type="button" class="btn btn-danger btn-lg" onclick="deleteTaskByIndex(${index}, ${i})">Удалить</button>
             <hr/>
@@ -112,6 +113,12 @@ function showMoveTask(indexTodoList, indexTask) {
     document.getElementById('name-task-move').innerText = todoList[indexTodoList].tasks[indexTask].name
     document.getElementById('to-do-lists').innerHTML = content
     document.getElementById('btn-move-task').onclick = () => moveTask(indexTodoList, indexTask)
+}
+
+function showTask(indexTodoList, indexTask) {
+    let todoList = getTodoList()
+
+    document.getElementById('name-selected-task').innerText = todoList[indexTodoList].tasks[indexTask].name
 }
 
 function moveTask(indexCurrentTodoList, indexTask) {
