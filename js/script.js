@@ -79,13 +79,14 @@ function showTodoListByIndex(index) {
         <h2 class="text-center">Список дел "${list.name}"</h2>
         <article class="row">
     `
+    //TODO: дописать редактирование
 
     for (let i = 0; i < list.tasks.length; i++) {
         content += `
         <section class="mb-3 col-xl-4 col-md-6 col-sm-12 text-center p-3">
             <hr/>
                 <h4 class="text-center">${list.tasks[i].name}</h4>
-                <p class="fs-5 ${new Date(list.tasks[i].deadline) > new Date() ? 'text-success' : 'text-danger'}">До: ${list.tasks[i].deadline}</p>
+                <p class="fs-5 ${list.tasks[i].isCompleted ? 'text-success' : new Date(list.tasks[i].deadline) > new Date() ? 'text-success' : 'text-danger'}">${list.tasks[i].isCompleted ? 'Выполнена' : `До: ${list.tasks[i].deadline}`}</p>
                 <button type="button" class="btn btn-success btn-lg" onclick="showTask(${index}, ${i})" data-bs-toggle="modal" data-bs-target="#showTaskModal">Открыть</button>
                 <button type="button" class="btn btn-warning btn-lg" onclick="showMoveTask(${index}, ${i})" data-bs-toggle="modal" data-bs-target="#moveTaskModal">Перенести</button>
                 <button type="button" class="btn btn-danger btn-lg" onclick="deleteTaskByIndex(${index}, ${i})">Удалить</button>
@@ -129,9 +130,24 @@ function showTask(indexTodoList, indexTask) {
     document.getElementById('name-selected-task').innerText = currentTask.name
     document.getElementById('isCompleted-selected-task').innerText = currentTask.isCompleted ? 'Выполнена' : 'Ждет выполнения'
     document.getElementById('isCompleted-selected-task').style.color = currentTask.isCompleted ? 'green' : '#ffca2c'
+    document.getElementById('block-decision').innerHTML = currentTask.isCompleted ? '' : `<button type="button" class="btn btn-success" onclick="solveTask(${indexTodoList}, ${indexTask})">Выполнить</button>`
     document.getElementById('description-selected-task').innerText = currentTask.description
     document.getElementById('deadline-selected-task').innerText = currentTask.deadline
     document.getElementById('deadline-selected-task').style.color = new Date(currentTask.deadline) > new Date() ? 'green' : 'red'
+}
+
+function solveTask(indexTodoList, indexTask) {
+    let todoList = getTodoList()
+
+    todoList[indexTodoList].tasks[indexTask].isCompleted = true
+
+    setTodoList(todoList)
+
+    showTodoListByIndex(indexTodoList)
+
+    document.getElementById('isCompleted-selected-task').innerText = 'Выполнена'
+    document.getElementById('isCompleted-selected-task').style.color = 'green'
+    document.getElementById('block-decision').innerHTML = ''
 }
 
 function moveTask(indexCurrentTodoList, indexTask) {
